@@ -550,7 +550,7 @@
   </sc-if>
 
   <sc-if value="{{ showModal }}" hint-placeholder-val="{{ false }}">
-  <div data-screen-label="Creation success" style="position:fixed;top:0;bottom:0;left:0;right:288px;z-index:130;background:rgba(70,76,80,0.6);display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto">
+  <div data-screen-label="Creation success" style="position:fixed;top:0;bottom:0;left:0;right:0;z-index:130;background:rgba(70,76,80,0.6);display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto">
     <div style="position:relative;width:600px;max-width:100%;background:#ffffff;border-radius:8px;padding:24px;box-shadow:0 8px 32px 0 rgba(21,27,38,0.12)">
       <button type="button" onClick="{{ closeModal }}" aria-label="Close" style="position:absolute;top:24px;right:24px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;padding:0;border:none;border-radius:4px;background:transparent;color:#273144;cursor:pointer" style-hover="background:#f4f6fa">
         <span class="ms" style="font-size:20px">close</span>
@@ -621,9 +621,9 @@
   </div>
   </sc-if>
 
-  <aside aria-label="Prototype controls" style="flex:0 0 288px;width:288px;align-self:flex-start;position:sticky;top:0;max-height:100vh;overflow-y:auto;z-index:200;background:#151b26;color:#ffffff;border-left:1px solid #3a4863;font-size:13px;line-height:18px">
-    <button type="button" onClick="{{ togglePanel }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;border:none;background:#151b26;color:#ffffff;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;cursor:pointer">
-      Prototype controls
+  <aside aria-label="Prototype controls" style="position:fixed;top:0;right:0;height:100vh;width:{{ panelWidth }};overflow-y:auto;z-index:200;background:#151b26;color:#ffffff;border-left:1px solid #3a4863;font-size:13px;line-height:18px;box-shadow:-4px 0 16px rgba(0,0,0,0.3)">
+    <button type="button" onClick="{{ togglePanel }}" style="width:100%;display:flex;align-items:center;justify-content:{{ panelHeaderAlign }};gap:8px;padding:12px 14px;border:none;background:#151b26;color:#ffffff;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;white-space:nowrap">
+      {{ panelLabel }}
       <span class="ms" style="font-size:18px">{{ panelIcon }}</span>
     </button>
     <sc-if value="{{ panelOpen }}" hint-placeholder-val="{{ true }}">
@@ -866,7 +866,10 @@ class Component extends DCLogic {
       sliderMax: a + 5,
       severityLabel: sev,
       panelOpen: s.panelOpen,
-      panelIcon: s.panelOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down',
+      panelWidth: s.panelOpen ? '288px' : '44px',
+      panelLabel: s.panelOpen ? 'Prototype controls' : '',
+      panelHeaderAlign: s.panelOpen ? 'space-between' : 'center',
+      panelIcon: s.panelOpen ? 'chevron_right' : 'chevron_left',
       freeBg: pill(!isPaid).bg, freeFg: '#ffffff',
       paidBg: pill(isPaid).bg, paidFg: '#ffffff',
       oneQrBg: pill(s.qrCount === 1).bg, oneQrFg: '#ffffff',
