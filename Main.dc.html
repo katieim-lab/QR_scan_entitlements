@@ -621,12 +621,18 @@
   </div>
   </sc-if>
 
-  <aside aria-label="Prototype controls" style="position:fixed;top:0;right:0;height:100vh;width:{{ panelWidth }};overflow-y:auto;z-index:200;background:#151b26;color:#ffffff;border-left:1px solid #3a4863;font-size:13px;line-height:18px;box-shadow:-4px 0 16px rgba(0,0,0,0.3)">
-    <button type="button" onClick="{{ togglePanel }}" style="width:100%;display:flex;align-items:center;justify-content:{{ panelHeaderAlign }};gap:8px;padding:12px 14px;border:none;background:#151b26;color:#ffffff;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;white-space:nowrap">
-      {{ panelLabel }}
-      <span class="ms" style="font-size:18px">{{ panelIcon }}</span>
+  <sc-if value="{{ panelClosed }}" hint-placeholder-val="{{ false }}">
+  <button type="button" onClick="{{ togglePanel }}" aria-label="Show prototype controls" style="position:fixed;top:16px;right:16px;width:44px;height:44px;border-radius:999px;border:none;background:#151b26;color:#ffffff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.35);z-index:200;cursor:pointer">
+    <span class="ms" style="font-size:20px">tune</span>
+  </button>
+  </sc-if>
+
+  <sc-if value="{{ panelOpen }}" hint-placeholder-val="{{ true }}">
+  <aside aria-label="Prototype controls" style="position:fixed;top:0;right:0;height:100vh;width:288px;overflow-y:auto;z-index:200;background:#151b26;color:#ffffff;border-left:1px solid #3a4863;font-size:13px;line-height:18px;box-shadow:-4px 0 16px rgba(0,0,0,0.3)">
+    <button type="button" onClick="{{ togglePanel }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;border:none;background:#151b26;color:#ffffff;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;white-space:nowrap">
+      Prototype controls
+      <span class="ms" style="font-size:18px">chevron_right</span>
     </button>
-    <sc-if value="{{ panelOpen }}" hint-placeholder-val="{{ true }}">
     <div style="padding:0 14px 14px;display:flex;flex-direction:column;gap:14px">
       <div style="color:#96a3bd;font-size:12px;line-height:16px">Not part of the Bitly UI. Demo only.</div>
 
@@ -684,8 +690,8 @@
         <button type="button" onClick="{{ reset }}" style="padding:7px 10px;border:1px solid #3a4863;border-radius:4px;background:#273144;color:#ffffff;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer">Reset</button>
       </div>
     </div>
-    </sc-if>
   </aside>
+  </sc-if>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;plan&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;free&quot;,&quot;core&quot;],&quot;default&quot;:&quot;free&quot;,&quot;tsType&quot;:&quot;'free' | 'core'&quot;,&quot;section&quot;:&quot;Prototype defaults&quot;},&quot;allowance&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;25&quot;,&quot;50&quot;,&quot;100&quot;,&quot;250&quot;],&quot;default&quot;:&quot;50&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype defaults&quot;},&quot;qrCodes&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;1&quot;,&quot;2&quot;],&quot;default&quot;:&quot;2&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype defaults&quot;},&quot;startState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;creation&quot;,&quot;active&quot;,&quot;approaching&quot;,&quot;critical&quot;,&quot;limit&quot;,&quot;scanner&quot;,&quot;upgrade&quot;,&quot;restored&quot;],&quot;default&quot;:&quot;active&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype defaults&quot;}}">
@@ -866,10 +872,7 @@ class Component extends DCLogic {
       sliderMax: a + 5,
       severityLabel: sev,
       panelOpen: s.panelOpen,
-      panelWidth: s.panelOpen ? '288px' : '44px',
-      panelLabel: s.panelOpen ? 'Prototype controls' : '',
-      panelHeaderAlign: s.panelOpen ? 'space-between' : 'center',
-      panelIcon: s.panelOpen ? 'chevron_right' : 'chevron_left',
+      panelClosed: !s.panelOpen,
       freeBg: pill(!isPaid).bg, freeFg: '#ffffff',
       paidBg: pill(isPaid).bg, paidFg: '#ffffff',
       oneQrBg: pill(s.qrCount === 1).bg, oneQrFg: '#ffffff',
