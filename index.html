@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
+<style>
+/* ── Bitly Orb design tokens (Foundations / Figma $orb-*) ── */
+:root {
+  --font-display: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans:    "Work Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Menlo", "Consolas", monospace;
+
+  --orb-gray-00: #ffffff; --orb-gray-10: #f4f6fa; --orb-gray-20: #e8ebf2; --orb-gray-30: #dbe0eb;
+  --orb-gray-40: #c3cbdc; --orb-gray-50: #96a3bd; --orb-gray-60: #71809f; --orb-gray-70: #526281;
+  --orb-gray-80: #3a4863; --orb-gray-90: #273144;
+
+  --orb-blue-10: #edf2ff; --orb-blue-20: #c6d3f5; --orb-blue-30: #8eaaec; --orb-blue-40: #4e7cd9;
+  --orb-blue-50: #345dcd; --orb-blue-60: #204099; --orb-blue-70: #132a6e;
+
+  --orb-orange-10: #ffeadf; --orb-orange-20: #ffbc95; --orb-orange-30: #ff8b4f; --orb-orange-40: #ff6116;
+  --orb-orange-50: #d64f0d; --orb-orange-60: #a13f0c; --orb-orange-70: #662b0c;
+
+  --orb-green-10: #e9fbee; --orb-green-20: #86d59f; --orb-green-30: #40ad61; --orb-green-40: #188238;
+  --orb-green-50: #046923; --orb-green-60: #014d19; --orb-green-70: #00300f;
+
+  --orb-red-10: #ffe8e6; --orb-red-20: #fa9e96; --orb-red-30: #f05e51; --orb-red-40: #de3121;
+  --orb-red-50: #c21506; --orb-red-60: #9b0d00; --orb-red-70: #6e0900;
+
+  --orb-yellow-10: #fff6d8; --orb-yellow-20: #ffe58e; --orb-yellow-30: #fbd44c; --orb-yellow-40: #f1c21b;
+  --orb-yellow-50: #d7a807; --orb-yellow-60: #b48b00; --orb-yellow-70: #8c6c00;
+
+  --orb-teal-10: #ecfdff; --orb-teal-20: #94ecf6; --orb-teal-30: #49d8e7; --orb-teal-40: #11becf;
+  --orb-teal-50: #00a2b4; --orb-teal-60: #007c8c; --orb-teal-70: #00525f;
+
+  --bg-canvas: var(--orb-gray-10); --bg-surface: var(--orb-gray-00); --bg-surface-sunk: var(--orb-gray-10);
+  --bg-overlay: rgba(39, 49, 68, 0.60); --bg-inverse: var(--orb-gray-90);
+
+  --text-primary: var(--orb-gray-90); --text-subtle: var(--orb-gray-70); --text-disabled: var(--orb-gray-50);
+  --text-inverse: var(--orb-gray-00); --text-link: var(--orb-blue-40); --text-link-hover: var(--orb-blue-50); --text-link-active: var(--orb-blue-60);
+  --text-success: var(--orb-green-40); --text-error: var(--orb-red-40); --text-warning: var(--orb-yellow-70); --text-promo: var(--orb-teal-60);
+
+  --border-subtle: var(--orb-gray-20); --border-default: var(--orb-gray-30); --border-strong: var(--orb-gray-40); --border-focus: var(--orb-blue-40);
+
+  --action-primary-bg: var(--orb-blue-50); --action-primary-bg-hover: var(--orb-blue-60); --action-primary-bg-active: var(--orb-blue-70); --action-primary-fg: var(--orb-gray-00);
+  --action-secondary-bg: var(--orb-gray-00); --action-secondary-bg-hover: var(--orb-gray-10); --action-secondary-border: var(--orb-gray-30); --action-secondary-fg: var(--orb-gray-90);
+  --action-destructive-bg: var(--orb-red-40); --action-destructive-bg-hover: var(--orb-red-50);
+
+  --elev-100: 0 0 1px 0 rgba(9, 30, 66, 0.31), 0 1px 1px 0 rgba(9, 30, 66, 0.25);
+  --elev-200: 0 0 1px 0 rgba(9, 30, 66, 0.31), 0 3px 5px 0 rgba(9, 30, 66, 0.20);
+  --elev-300: 0 0 1px 0 rgba(9, 30, 66, 0.31), 0 8px 12px 0 rgba(9, 30, 66, 0.15);
+  --elev-400: 0 0 1px 0 rgba(9, 30, 66, 0.31), 0 10px 18px 0 rgba(9, 30, 66, 0.15);
+  --elev-500: 0 0 1px 0 rgba(9, 30, 66, 0.31), 0 18px 28px 0 rgba(9, 30, 66, 0.15);
+  --elev-focus-ring: 0 0 0 3px rgba(52, 93, 205, 0.35);
+
+  --radius-xs: 2px; --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-xl: 12px; --radius-pill: 999px;
+
+  --space-0: 0; --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 20px;
+  --space-6: 24px; --space-7: 32px; --space-8: 40px; --space-9: 48px; --space-10: 64px; --space-11: 80px;
+
+  --font-size-display-xl: 48px; --font-leading-display-xl: 56px;
+  --font-size-display-lg: 36px; --font-leading-display-lg: 44px;
+  --font-size-h1: 32px; --font-leading-h1: 40px;
+  --font-size-h2: 24px; --font-leading-h2: 32px;
+  --font-size-h3: 20px; --font-leading-h3: 28px;
+  --font-size-h4: 18px; --font-leading-h4: 24px;
+  --font-size-h5: 16px; --font-leading-h5: 20px;
+  --font-size-body-lg: 18px; --font-leading-body-lg: 28px;
+  --font-size-body: 16px; --font-leading-body: 24px;
+  --font-size-body-sm: 14px; --font-leading-body-sm: 20px;
+  --font-size-caption: 12px; --font-leading-caption: 16px;
+  --font-size-micro: 11px; --font-leading-micro: 14px;
+  --font-weight-regular: 400; --font-weight-medium: 500; --font-weight-semibold: 600; --font-weight-bold: 700; --font-weight-heavy: 800;
+}
+  html, body { margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); color: #273144; -webkit-font-smoothing: antialiased; }
+  a { color: #2a5bd7; text-decoration: none; }
+  a:hover { color: #0c3ebb; text-decoration: underline; }
+  .ms { font-family: 'Material Symbols Outlined'; font-weight: normal; font-style: normal; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; direction: ltr; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+</style>
+</helmet>
+
+<div style="display:flex;min-height:100vh;background:#f4f6fa;font-family:var(--font-sans);font-size:16px;line-height:24px;color:#273144">
+
+  <sc-if value="{{ isApp }}" hint-placeholder-val="{{ true }}">
+  <aside style="width:240px;min-width:240px;background:#ffffff;border-right:1px solid #dbe0eb;padding:16px 12px;display:flex;flex-direction:column;gap:4px">
+    <div style="padding:6px 6px 28px">
+      <img src="bitly-logo-color.svg" alt="Bitly" style="height:32px;width:auto;display:block">
+    </div>
+    <button type="button" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;margin-bottom:20px;border:none;border-radius:4px;background:#022d94;color:#ffffff;font-family:inherit;font-size:16px;font-weight:500;cursor:pointer;box-shadow:0 2px 8px 0 rgba(0,0,0,0.24)" style-hover="background:#001f66">
+      <span class="ms" style="font-size:20px">add</span>Create new
+    </button>
+    <a href="#" onClick="{{ noop }}" style="display:flex;align-items:center;gap:12px;height:40px;padding:0 12px;border-radius:4px;color:#273144;font-size:16px;font-weight:500;text-decoration:none" style-hover="background:#f4f6fa;text-decoration:none">
+      <span class="ms" style="font-size:20px">link</span>Links
+    </a>
+    <a href="#" onClick="{{ noop }}" style="display:flex;align-items:center;gap:12px;height:40px;padding:0 12px;border-radius:4px;background:#edf2ff;color:#0c3ebb;font-size:16px;font-weight:500;text-decoration:none">
+      <span class="ms" style="font-size:20px;font-variation-settings:'FILL' 1">qr_code_2</span>QR Codes
+    </a>
+    <a href="#" onClick="{{ noop }}" style="display:flex;align-items:center;gap:12px;height:40px;padding:0 12px;border-radius:4px;color:#273144;font-size:16px;font-weight:500;text-decoration:none" style-hover="background:#f4f6fa;text-decoration:none">
+      <span class="ms" style="font-size:20px">dashboard</span>Pages
+    </a>
+    <a href="#" onClick="{{ noop }}" style="display:flex;align-items:center;gap:12px;height:40px;padding:0 12px;border-radius:4px;color:#273144;font-size:16px;font-weight:500;text-decoration:none" style-hover="background:#f4f6fa;text-decoration:none">
+      <span class="ms" style="font-size:20px">campaign</span>Campaigns
+    </a>
+    <a href="#" onClick="{{ noop }}" style="display:flex;align-items:center;gap:12px;height:40px;padding:0 12px;border-radius:4px;color:#273144;font-size:16px;font-weight:500;text-decoration:none" style-hover="background:#f4f6fa;text-decoration:none">
+      <span class="ms" style="font-size:20px">bar_chart</span>Analytics
+    </a>
+    <div style="flex:1"></div>
+    <a href="#" onClick="{{ noop }}" style="display:flex;align-items:center;gap:12px;height:40px;padding:0 12px;border-radius:4px;color:#273144;font-size:16px;font-weight:500;text-decoration:none" style-hover="background:#f4f6fa;text-decoration:none">
+      <span class="ms" style="font-size:20px">settings</span>Settings
+    </a>
+    <div style="border-top:1px solid #e8ebf2;margin-top:12px;padding:16px 12px 4px;display:flex;flex-direction:column;gap:4px">
+      <div style="font-size:12px;line-height:16px;color:#526281">Your plan</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:16px;font-weight:600;line-height:20px">{{ planName }}</span>
+      </div>
+    </div>
+  </aside>
+
+  <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+    <header style="height:56px;display:flex;align-items:center;gap:16px;padding:8px 16px 8px 24px;background:#ffffff;border-bottom:1px solid #dbe0eb">
+      <div style="display:flex;align-items:center;gap:8px;height:40px;min-width:320px;max-width:420px;flex:1;padding:0 12px;border:1px solid #dbe0eb;border-radius:4px;background:#ffffff;color:#526281">
+        <span class="ms" style="font-size:20px">search</span>
+        <span style="font-size:16px;color:#71809f">Search links, QR Codes, tags</span>
+      </div>
+      <div style="flex:1"></div>
+      <sc-if value="{{ isFree }}" hint-placeholder-val="{{ true }}">
+      <button type="button" onClick="{{ goPricing }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:0 8px;border:none;border-radius:4px;background:#007c8c;color:#ffffff;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:#00525f">Upgrade</button>
+      </sc-if>
+      <span class="ms" style="font-size:20px;color:#273144">notifications</span>
+      <span class="ms" style="font-size:20px;color:#273144">help</span>
+      <div style="width:1px;height:32px;background:#dbe0eb"></div>
+      <div style="width:32px;height:32px;border-radius:999px;background:#ff6116;color:#ffffff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600">SL</div>
+    </header>
+
+    <main style="flex:1;overflow-y:auto;background:#f4f6fa">
+
+      <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="QR Codes list" style="width:100%;max-width:1120px;margin:0 auto;padding:32px 40px 64px">
+
+        <sc-if value="{{ showRestored }}" hint-placeholder-val="{{ false }}">
+        <div role="alert" style="display:flex;gap:12px;align-items:flex-start;padding:16px;margin-bottom:16px;border-radius:4px;border-left:4px solid #188238;background:#e9fbee;color:#046923;font-size:16px;line-height:20px">
+          <span class="ms" style="font-size:20px;color:#188238;font-variation-settings:'FILL' 1">check_circle</span>
+          <div style="flex:1">
+            <div style="font-weight:600;margin-bottom:4px;color:#014d19">Your QR Codes are active again</div>
+            <div>All of your QR Codes can now be scanned without limits.</div>
+          </div>
+          <button type="button" onClick="{{ dismissRestored }}" style="border:none;background:transparent;cursor:pointer;color:#014d19;padding:0;display:flex" aria-label="Close">
+            <span class="ms" style="font-size:20px">close</span>
+          </button>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ showWarnAlert }}" hint-placeholder-val="{{ false }}">
+        <div role="alert" style="display:flex;gap:12px;align-items:flex-start;padding:16px;margin-bottom:16px;border-radius:4px;border-left:4px solid #f1c21b;background:#fff6d8;color:#8c6c00;font-size:16px;line-height:20px">
+          <span class="ms" style="font-size:20px;color:#f1c21b;font-variation-settings:'FILL' 1">warning</span>
+          <div style="flex:1">
+            <div style="font-weight:600;margin-bottom:4px">You're approaching your QR scan limit</div>
+            <div>You've used {{ usedClamped }} of the {{ allowance }} QR scans included with your Free plan. Scans are shared across your QR Codes.</div>
+          </div>
+          <button type="button" onClick="{{ goPricing }}" style="align-self:center;display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:0 8px;border:1px solid #dbe0eb;border-radius:4px;background:#ffffff;color:#273144;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap" style-hover="background:#f4f6fa;border-color:#c3cbdc">View plans</button>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ showCritAlert }}" hint-placeholder-val="{{ false }}">
+        <div role="alert" style="display:flex;gap:12px;align-items:flex-start;padding:16px;margin-bottom:16px;border-radius:4px;border-left:4px solid #f1c21b;background:#fff6d8;color:#8c6c00;font-size:16px;line-height:20px">
+          <span class="ms" style="font-size:20px;color:#f1c21b;font-variation-settings:'FILL' 1">warning</span>
+          <div style="flex:1">
+            <div style="font-weight:600;margin-bottom:4px">{{ remainingLabel }} remaining across your account</div>
+            <div>Your QR Codes will stop redirecting when your Free plan reaches {{ allowance }} scans. Upgrade for unlimited scans.</div>
+          </div>
+          <button type="button" onClick="{{ goPricing }}" style="align-self:center;display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:0 8px;border:none;border-radius:4px;background:#2a5bd7;color:#ffffff;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap" style-hover="background:#0c3ebb">Upgrade</button>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ showLimitAlert }}" hint-placeholder-val="{{ false }}">
+        <div role="alert" style="display:flex;gap:12px;align-items:flex-start;padding:16px;margin-bottom:16px;border-radius:4px;border-left:4px solid #de3121;background:#ffe8e6;color:#c21506;font-size:16px;line-height:20px">
+          <span class="ms" style="font-size:20px;color:#de3121;font-variation-settings:'FILL' 1">report</span>
+          <div style="flex:1">
+            <div style="font-weight:600;margin-bottom:4px;color:#9b0d00">Your QR Codes have reached their scan limit</div>
+            <div>You've used all {{ allowance }} QR scans included with your Free plan. Your QR Codes are no longer redirecting. Upgrade for unlimited scans and reactivate your QR Codes.</div>
+          </div>
+          <button type="button" onClick="{{ goPricing }}" style="align-self:center;display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:0 8px;border:none;border-radius:4px;background:#2a5bd7;color:#ffffff;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap" style-hover="background:#0c3ebb">Upgrade</button>
+        </div>
+        </sc-if>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <h1 style="margin:0;font-size:32px;line-height:40px;font-weight:600;letter-spacing:.01em">QR Codes</h1>
+          <div style="display:flex;align-items:center;gap:16px">
+            <button type="button" style="display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 15px;border:1px solid #dbe0eb;border-radius:4px;background:#ffffff;color:#273144;font-family:inherit;font-size:16px;font-weight:500;cursor:pointer" style-hover="background:#f4f6fa;border-color:#c3cbdc">
+              <span class="ms" style="font-size:20px">filter_list</span>Filter
+            </button>
+            <button type="button" style="display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 16px;border:none;border-radius:4px;background:#2a5bd7;color:#ffffff;font-family:inherit;font-size:16px;font-weight:500;cursor:pointer" style-hover="background:#0c3ebb">
+              <span class="ms" style="font-size:20px">add</span>Create QR Code
+            </button>
+          </div>
+        </div>
+
+        <section aria-label="QR scans" style="background:#ffffff;border-radius:12px;padding:24px;margin-bottom:24px">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:24px">
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                <h2 style="margin:0;font-size:20px;line-height:24px;font-weight:600;letter-spacing:.01em">QR scans</h2>
+                <span style="display:inline-flex;align-items:center;padding:4px 10px;border-radius:4px;background:#f4f6fa;color:#3a4863;font-size:14px;line-height:normal;font-weight:500">{{ planName }}</span>
+                <span class="ms" title="{{ sharedTooltip }}" style="font-size:16px;color:#526281;cursor:help">help</span>
+              </div>
+
+              <sc-if value="{{ isFree }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px">
+                <span style="font-size:24px;line-height:32px;font-weight:600;letter-spacing:.01em">{{ usedClamped }} of {{ allowance }} used</span>
+                <span style="font-size:14px;line-height:20px;color:#526281">{{ remainingSentence }}</span>
+              </div>
+              <div style="max-width:480px;height:8px;border-radius:8px;background:#f4f6fa;overflow:hidden">
+                <div style="height:100%;background:#2a5bd7;border-radius:8px;width:{{ pctWidth }}"></div>
+              </div>
+              <p style="margin:12px 0 0;font-size:14px;line-height:20px;color:#526281">Your Free plan's scan allowance is shared across your QR Codes. Scans do not reset monthly.</p>
+              <sc-if value="{{ isOver }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:4px 0 0;font-size:14px;line-height:20px;color:#526281">Scans past the limit are counted but not redirected.</p>
+              </sc-if>
+              </sc-if>
+
+              <sc-if value="{{ isPaid }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="font-size:24px;line-height:32px;font-weight:600;letter-spacing:.01em">Unlimited</span>
+                <span style="display:inline-flex;align-items:center;padding:4px 10px;border-radius:4px;background:#ecfdff;color:#007c8c;font-size:14px;line-height:normal;font-weight:500">No scan limit</span>
+              </div>
+              <p style="margin:12px 0 0;font-size:14px;line-height:20px;color:#526281">Your QR Codes redirect without a scan limit while your plan is active.</p>
+              </sc-if>
+            </div>
+
+            <sc-if value="{{ isFree }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex:0 0 auto">
+              <sc-if value="{{ severeCta }}" hint-placeholder-val="{{ false }}">
+              <button type="button" onClick="{{ goPricing }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 16px;border:none;border-radius:4px;background:#2a5bd7;color:#ffffff;font-family:inherit;font-size:16px;font-weight:500;cursor:pointer;white-space:nowrap" style-hover="background:#0c3ebb">Upgrade for unlimited scans</button>
+              </sc-if>
+              <sc-if value="{{ subtleCta }}" hint-placeholder-val="{{ true }}">
+              <a href="#" onClick="{{ goPricing }}" style="font-size:14px;font-weight:600;color:#2a5bd7;white-space:nowrap">Get unlimited scans</a>
+              </sc-if>
+            </div>
+            </sc-if>
+          </div>
+        </section>
+
+        <div style="display:grid;gap:16px">
+          <sc-for list="{{ qrs }}" as="qr" hint-placeholder-count="2">
+          <article style="background:#ffffff;border:1px solid transparent;border-radius:12px;padding:16px 16px 24px 32px;display:flex;gap:24px">
+            <div style="flex:0 0 116px;display:flex;flex-direction:column;align-items:center;gap:8px">
+              <div style="width:116px;height:116px;border:1px solid #dbe0eb;border-radius:4px;padding:8px;box-sizing:border-box;background:#ffffff">
+                <svg viewBox="0 0 21 21" width="98" height="98" role="img" aria-label="QR Code preview" style="display:block;opacity:{{ qr.imageOpacity }}">
+                  <rect x="0" y="0" width="21" height="21" fill="#ffffff"></rect>
+                  <rect x="0" y="0" width="7" height="7" fill="#273144"></rect>
+                  <rect x="1" y="1" width="5" height="5" fill="#ffffff"></rect>
+                  <rect x="2" y="2" width="3" height="3" fill="#273144"></rect>
+                  <rect x="14" y="0" width="7" height="7" fill="#273144"></rect>
+                  <rect x="15" y="1" width="5" height="5" fill="#ffffff"></rect>
+                  <rect x="16" y="2" width="3" height="3" fill="#273144"></rect>
+                  <rect x="0" y="14" width="7" height="7" fill="#273144"></rect>
+                  <rect x="1" y="15" width="5" height="5" fill="#ffffff"></rect>
+                  <rect x="2" y="16" width="3" height="3" fill="#273144"></rect>
+                  <sc-for list="{{ qr.modules }}" as="m" hint-placeholder-count="0">
+                  <rect x="{{ m.x }}" y="{{ m.y }}" width="1" height="1" fill="#273144"></rect>
+                  </sc-for>
+                </svg>
+              </div>
+            </div>
+
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+                <div style="min-width:0">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                    <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:4px;background:#f4f6fa;color:#3a4863;font-size:14px;line-height:normal;font-weight:500">
+                      <span class="ms" style="font-size:14px">qr_code_2</span>QR Code
+                    </span>
+                    <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:4px;font-size:14px;line-height:normal;font-weight:500;background:{{ qr.statusBg }};color:{{ qr.statusFg }}">
+                      <span class="ms" style="font-size:14px;font-variation-settings:'FILL' 1">{{ qr.statusIcon }}</span>{{ qr.statusLabel }}
+                    </span>
+                  </div>
+                  <a href="#" onClick="{{ qr.open }}" style="display:block;font-size:20px;line-height:24px;font-weight:600;letter-spacing:.01em;color:{{ qr.titleColor }};margin-bottom:8px">{{ qr.name }}</a>
+                  <div style="display:flex;align-items:center;gap:8px;font-size:16px;line-height:24px;color:{{ qr.bodyColor }};min-width:0">
+                    <span class="ms" style="font-size:16px">subdirectory_arrow_right</span>
+                    <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ qr.long }}</span>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;flex:0 0 auto">
+                  <button type="button" onClick="{{ qr.open }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 15px;border:1px solid #dbe0eb;border-radius:4px;background:#ffffff;color:#273144;font-family:inherit;font-size:16px;font-weight:500;cursor:pointer;white-space:nowrap" style-hover="background:#f4f6fa;border-color:#c3cbdc">View details</button>
+                  <button type="button" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid #dbe0eb;border-radius:4px;background:#ffffff;color:#273144;cursor:pointer" style-hover="background:#f4f6fa" aria-label="Download">
+                    <span class="ms" style="font-size:20px">file_download</span>
+                  </button>
+                  <button type="button" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid #dbe0eb;border-radius:4px;background:#ffffff;color:#273144;cursor:pointer" style-hover="background:#f4f6fa" aria-label="More options">
+                    <span class="ms" style="font-size:20px">more_horiz</span>
+                  </button>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:24px;margin-top:16px;font-size:14px;line-height:20px">
+                <div style="display:flex;align-items:center;gap:4px;color:{{ qr.scanColor }}">
+                  <span class="ms" style="font-size:16px">bar_chart</span>
+                  <span><span style="font-weight:600">{{ qr.scans }}</span> scans</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:4px;color:{{ qr.bodyColor }}">
+                  <span class="ms" style="font-size:16px">link</span>{{ qr.short }}
+                </div>
+                <div style="display:flex;align-items:center;gap:4px;color:{{ qr.bodyColor }}">
+                  <span class="ms" style="font-size:16px">calendar_today</span>{{ qr.created }}
+                </div>
+              </div>
+              <sc-if value="{{ qr.isStopped }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:8px;align-items:center;margin-top:16px;padding:11px 12px;border-radius:4px;background:#ffe8e6;color:#c21506;font-size:14px;line-height:18px">
+                <span class="ms" style="font-size:18px;color:#de3121;font-variation-settings:'FILL' 1">report</span>
+                <div style="flex:1">This QR Code is not redirecting. Its destination and settings are unchanged — upgrading reactivates it.</div>
+              </div>
+              </sc-if>
+            </div>
+          </article>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:center;gap:16px;padding:32px 0">
+          <div style="border-bottom:1px solid #71809f;width:48px"></div>
+          <div style="color:#526281;font-size:14px;text-align:center;max-width:400px">{{ qrLimitLine }}</div>
+          <div style="border-bottom:1px solid #71809f;width:48px"></div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isDetails }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="QR Code details" style="width:100%;max-width:1120px;margin:0 auto;padding:32px 40px 64px">
+        <a href="#" onClick="{{ goList }}" style="display:inline-flex;align-items:center;gap:4px;font-size:14px;font-weight:600;margin-bottom:16px">
+          <span class="ms" style="font-size:16px">chevron_left</span>Back to QR Codes
+        </a>
+
+        <sc-if value="{{ showLimitAlert }}" hint-placeholder-val="{{ false }}">
+        <div role="alert" style="display:flex;gap:12px;align-items:flex-start;padding:16px;margin-bottom:24px;border-radius:4px;border-left:4px solid #de3121;background:#ffe8e6;color:#c21506;font-size:16px;line-height:20px">
+          <span class="ms" style="font-size:20px;color:#de3121;font-variation-settings:'FILL' 1">report</span>
+          <div style="flex:1">
+            <div style="font-weight:600;margin-bottom:4px;color:#9b0d00">Scan limit reached for this account</div>
+            <div>All {{ allowance }} QR scans on your Free plan have been used, so this QR Code is not redirecting. Its destination, design, and scan history are unchanged.</div>
+          </div>
+          <button type="button" onClick="{{ goPricing }}" style="align-self:center;display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:0 8px;border:none;border-radius:4px;background:#2a5bd7;color:#ffffff;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap" style-hover="background:#0c3ebb">Upgrade</button>
+        </div>
+        </sc-if>
+
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:24px">
+          <div style="min-width:0">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+              <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:4px;font-size:14px;line-height:normal;font-weight:500;background:{{ detail.statusBg }};color:{{ detail.statusFg }}">
+                <span class="ms" style="font-size:14px;font-variation-settings:'FILL' 1">{{ detail.statusIcon }}</span>{{ detail.statusLabel }}
+              </span>
+            </div>
+            <h1 style="margin:0;font-size:32px;line-height:40px;font-weight:600;letter-spacing:.01em">{{ detail.name }}</h1>
+            <div style="margin-top:8px;font-size:16px;line-height:24px;color:#526281">{{ detail.long }}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex:0 0 auto">
+            <button type="button" style="display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 15px;border:1px solid #dbe0eb;border-radius:4px;background:#ffffff;color:#273144;font-family:inherit;font-size:16px;font-weight:500;cursor:pointer" style-hover="background:#f4f6fa;border-color:#c3cbdc">
+              <span class="ms" style="font-size:20px">file_download</span>Download
+            </button>
+            <button type="button" style="display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 15px;border:1px solid #2a5bd7;border-radius:4px;background:#ffffff;color:#2a5bd7;font-family:inherit;font-size:16px;font-weight:500;cursor:pointer" style-hover="background:#edf2ff;border-color:#0c3ebb;color:#0c3ebb">
+              <span class="ms" style="font-size:20px">edit</span>Edit
+            </button>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:24px;align-items:flex-start">
+          <div style="flex:0 0 336px;width:336px;background:#ffffff;border-radius:16px;padding:24px 0;display:flex;flex-direction:column;gap:24px">
+            <div style="padding:0 24px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:32px 0 16px;border:1px solid #e8ebf2;border-radius:12px">
+                <div style="width:124px;height:124px;border:1px solid #dbe0eb;border-radius:4px;background:#ffffff;padding:9px;box-sizing:border-box">
+                  <svg viewBox="0 0 21 21" width="104" height="104" role="img" aria-label="QR Code" style="display:block;opacity:{{ detail.imageOpacity }}">
+                    <rect x="0" y="0" width="21" height="21" fill="#ffffff"></rect>
+                    <rect x="0" y="0" width="7" height="7" fill="#273144"></rect>
+                    <rect x="1" y="1" width="5" height="5" fill="#ffffff"></rect>
+                    <rect x="2" y="2" width="3" height="3" fill="#273144"></rect>
+                    <rect x="14" y="0" width="7" height="7" fill="#273144"></rect>
+                    <rect x="15" y="1" width="5" height="5" fill="#ffffff"></rect>
+                    <rect x="16" y="2" width="3" height="3" fill="#273144"></rect>
+                    <rect x="0" y="14" width="7" height="7" fill="#273144"></rect>
+                    <rect x="1" y="15" width="5" height="5" fill="#ffffff"></rect>
+                    <rect x="2" y="16" width="3" height="3" fill="#273144"></rect>
+                    <sc-for list="{{ detail.modules }}" as="m" hint-placeholder-count="0">
+                    <rect x="{{ m.x }}" y="{{ m.y }}" width="1" height="1" fill="#273144"></rect>
+                    </sc-for>
+                  </svg>
+                </div>
+                <button type="button" style="display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 16px;border:none;border-radius:4px;background:transparent;color:#2a5bd7;font-family:inherit;font-size:16px;font-weight:500;cursor:pointer" style-hover="background:#e8ebf2">
+                  <span class="ms" style="font-size:20px">palette</span>Customize
+                </button>
+              </div>
+            </div>
+            <div style="padding:0 24px;display:flex;justify-content:center">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;width:288px;max-width:100%;height:48px;padding:12px 8px 12px 16px;border:1px solid #e8ebf2;border-radius:8px">
+                <span style="flex:1;min-width:0;font-size:16px;line-height:24px;color:#273144;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ detail.short }}</span>
+                <span class="ms" style="font-size:20px;color:#526281">more_horiz</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:24px">
+            <section aria-label="Account QR scans" style="background:#ffffff;border-radius:16px;padding:24px">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:24px">
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                    <h2 style="margin:0;font-size:16px;line-height:20px;font-weight:600;letter-spacing:.01em">Account QR scans</h2>
+                    <span class="ms" title="{{ sharedTooltip }}" style="font-size:16px;color:#526281;cursor:help">help</span>
+                  </div>
+                  <sc-if value="{{ isFree }}" hint-placeholder-val="{{ true }}">
+                  <div style="font-size:20px;line-height:24px;font-weight:600;letter-spacing:.01em;margin-bottom:8px">{{ usedClamped }} of {{ allowance }} used</div>
+                  <div style="max-width:420px;height:8px;border-radius:8px;background:#f4f6fa;overflow:hidden">
+                    <div style="height:100%;background:#2a5bd7;border-radius:8px;width:{{ pctWidth }}"></div>
+                  </div>
+                  <p style="margin:12px 0 0;font-size:14px;line-height:20px;color:#526281">{{ detail.sharedLine }}</p>
+                  </sc-if>
+                  <sc-if value="{{ isPaid }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:20px;line-height:24px;font-weight:600;letter-spacing:.01em">Unlimited</div>
+                  <p style="margin:12px 0 0;font-size:14px;line-height:20px;color:#526281">Included with your {{ planName }}.</p>
+                  </sc-if>
+                </div>
+                <sc-if value="{{ isFree }}" hint-placeholder-val="{{ true }}">
+                <a href="#" onClick="{{ goPricing }}" style="font-size:14px;font-weight:600;white-space:nowrap">View plan details</a>
+                </sc-if>
+              </div>
+            </section>
+
+            <section aria-label="Scan analytics" style="background:#ffffff;border-radius:16px;padding:24px">
+              <h2 style="margin:0 0 16px;font-size:16px;line-height:20px;font-weight:600;letter-spacing:.01em">Scans for this QR Code</h2>
+              <div style="display:flex;gap:16px;margin-bottom:24px">
+                <div style="flex:1;padding:16px;border:1px solid #e8ebf2;border-radius:8px">
+                  <div style="font-size:14px;line-height:20px;color:#526281;margin-bottom:4px">Total scans</div>
+                  <div style="font-size:24px;line-height:32px;font-weight:600">{{ detail.scans }}</div>
+                </div>
+                <div style="flex:1;padding:16px;border:1px solid #e8ebf2;border-radius:8px">
+                  <div style="font-size:14px;line-height:20px;color:#526281;margin-bottom:4px">Share of account scans</div>
+                  <div style="font-size:24px;line-height:32px;font-weight:600">{{ detail.sharePct }}</div>
+                </div>
+                <div style="flex:1;padding:16px;border:1px solid #e8ebf2;border-radius:8px">
+                  <div style="font-size:14px;line-height:20px;color:#526281;margin-bottom:4px">Redirecting</div>
+                  <div style="font-size:24px;line-height:32px;font-weight:600">{{ detail.redirecting }}</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-end;gap:4px;height:120px">
+                <sc-for list="{{ detail.series }}" as="bar" hint-placeholder-count="14">
+                <div style="flex:1;background:#2a5bd7;border-radius:2px 2px 0 0;height:{{ bar.h }}"></div>
+                </sc-for>
+              </div>
+              <div style="margin-top:8px;font-size:12px;line-height:16px;color:#526281">Last 14 days</div>
+            </section>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isPricing }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Plans and upgrade" style="background:#f4f6fa">
+        <div style="width:100%;max-width:1120px;margin:0 auto;padding:40px 40px 0;text-align:center">
+          <a href="#" onClick="{{ goList }}" style="display:inline-flex;align-items:center;gap:4px;font-size:14px;font-weight:600;margin-bottom:16px">
+            <span class="ms" style="font-size:16px">chevron_left</span>Back to QR Codes
+          </a>
+          <h1 style="margin:0 0 16px;font-size:40px;line-height:40px;font-weight:600;letter-spacing:.01em">Choose the plan that fits</h1>
+          <p style="margin:0 0 8px;font-size:24px;line-height:32px;color:#526281">Paid plans include unlimited QR scans, so your QR Codes keep redirecting.</p>
+        </div>
+        <div style="position:relative;overflow:hidden;margin-top:32px">
+          <div style="position:absolute;inset:0;background:#edf2ff"></div>
+          <div style="position:relative;display:flex;justify-content:center;align-items:stretch;gap:16px;padding:36px 16px 82px;max-width:1120px;margin:0 auto">
+
+            <div style="position:relative;width:100%;max-width:304px;background:#ffffff;border-radius:4px;box-shadow:0 8px 16px rgba(21,27,38,0.12);padding:24px;display:flex;flex-direction:column">
+              <div style="font-size:20px;line-height:24px;font-weight:600;letter-spacing:.01em;margin-bottom:24px;text-align:center">Free</div>
+              <div style="text-align:center;margin-bottom:8px;color:#0c3ebb"><span style="font-size:40px;line-height:34px;font-weight:600">$0</span></div>
+              <div style="text-align:center;font-size:14px;line-height:20px;color:#526281;margin-bottom:24px">Current plan</div>
+              <div style="text-align:center;font-size:16px;line-height:24px;margin-bottom:24px">
+                <div>2 QR Codes</div>
+                <div style="font-weight:600">{{ allowance }} lifetime QR scans</div>
+              </div>
+              <div style="flex:1"></div>
+              <button type="button" disabled style="display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 16px;border:1px solid #dbe0eb;border-radius:4px;background:#f4f6fa;color:#c3cbdc;font-family:inherit;font-size:16px;font-weight:500;cursor:not-allowed">Current plan</button>
+            </div>
+
+            <div style="position:relative;width:100%;max-width:304px;margin-top:36px;background:#ffffff;border-radius:4px;box-shadow:0 8px 16px rgba(21,27,38,0.12);padding:24px;display:flex;flex-direction:column">
+              <div style="position:absolute;top:-36px;left:0;width:100%;height:calc(100% + 36px);border:2px solid #5983ec;border-radius:4px;pointer-events:none"></div>
+              <div style="position:absolute;top:-36px;left:0;width:100%;display:flex;justify-content:center;padding:10px 0 8px;background:#5983ec;border-radius:4px 4px 0 0">
+                <span style="color:#ffffff;font-size:14px;font-weight:600">Recommended</span>
+              </div>
+              <div style="position:relative;display:flex;flex-direction:column;flex:1">
+                <div style="font-size:20px;line-height:24px;font-weight:600;letter-spacing:.01em;margin-bottom:24px;text-align:center">Core</div>
+                <div style="text-align:center;margin-bottom:8px;color:#0c3ebb"><span style="font-size:40px;line-height:34px;font-weight:600">$8</span><span style="font-size:20px;line-height:24px;font-weight:600">/mo</span></div>
+                <div style="text-align:center;font-size:14px;line-height:20px;color:#526281;margin-bottom:24px">Billed annually</div>
+                <div style="text-align:center;font-size:16px;line-height:24px;margin-bottom:24px">
+                  <div>Unlimited QR Codes</div>
+                  <div style="font-weight:600">Unlimited QR scans</div>
+                  <div>Custom back-halves</div>
+                </div>
+                <div style="flex:1"></div>
+                <button type="button" onClick="{{ doUpgrade }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 16px;border:none;border-radius:4px;background:#2a5bd7;color:#ffffff;font-family:inherit;font-size:16px;font-weight:500;cursor:pointer" style-hover="background:#0c3ebb">Upgrade to Core</button>
+              </div>
+            </div>
+
+            <div style="position:relative;width:100%;max-width:304px;background:#ffffff;border-radius:4px;box-shadow:0 8px 16px rgba(21,27,38,0.12);padding:24px;display:flex;flex-direction:column">
+              <div style="font-size:20px;line-height:24px;font-weight:600;letter-spacing:.01em;margin-bottom:24px;text-align:center">Growth</div>
+              <div style="text-align:center;margin-bottom:8px;color:#0c3ebb"><span style="font-size:40px;line-height:34px;font-weight:600">$29</span><span style="font-size:20px;line-height:24px;font-weight:600">/mo</span></div>
+              <div style="text-align:center;font-size:14px;line-height:20px;color:#526281;margin-bottom:24px">Billed annually</div>
+              <div style="text-align:center;font-size:16px;line-height:24px;margin-bottom:24px">
+                <div>Everything in Core</div>
+                <div style="font-weight:600">Unlimited QR scans</div>
+                <div>Custom domains</div>
+              </div>
+              <div style="flex:1"></div>
+              <button type="button" onClick="{{ doUpgrade }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 15px;border:1px solid #2a5bd7;border-radius:4px;background:#ffffff;color:#2a5bd7;font-family:inherit;font-size:16px;font-weight:500;cursor:pointer" style-hover="background:#edf2ff;border-color:#0c3ebb;color:#0c3ebb">Upgrade to Growth</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+    </main>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isScanner }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Scanner view" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:40px;background:#e8ebf2">
+    <div style="font-size:14px;line-height:20px;color:#526281">What someone scanning a stopped QR Code sees</div>
+    <div style="width:390px;height:760px;border-radius:40px;background:#273144;padding:12px;box-shadow:0 8px 32px rgba(21,27,38,0.12)">
+      <div style="width:100%;height:100%;border-radius:28px;overflow:hidden;background:#fffdf8;display:flex;flex-direction:column">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid #d6d2c9">
+          <img src="bitly-logo-color.svg" alt="Bitly" style="height:28px;width:auto;display:block">
+          <div style="display:flex;align-items:center;gap:16px">
+            <a href="#" onClick="{{ noop }}" style="font-size:16px;font-weight:500;color:#031f39">Log in</a>
+            <a href="#" onClick="{{ noop }}" style="font-size:16px;font-weight:500;color:#fffdf8;background:#0058dd;border-radius:8px;padding:8px 16px">Sign up Free</a>
+          </div>
+        </div>
+        <div style="flex:1;overflow-y:auto;padding:32px 22px;color:#031f39">
+          <p style="margin:0 0 8px;font-size:16px;font-weight:500;line-height:1.4;color:#777570;text-transform:uppercase">QR Code unavailable</p>
+          <h1 style="margin:0 0 16px;font-size:32px;line-height:1.2;font-weight:700">This QR Code is temporarily unavailable.</h1>
+          <p style="margin:0 0 12px;font-size:18px;line-height:1.6">The destination for this QR Code is not currently available. If you still need access, we suggest reaching out to the person or organization that shared it with you.</p>
+          <p style="margin:0 0 32px;font-size:18px;line-height:1.6">P.S. You do not need to sign up (or sign in) to open a Bitly link.</p>
+          <div style="border-top:1px solid #bab7b0;padding-top:24px">
+            <h2 style="margin:0 0 16px;font-size:20px;line-height:1.2;font-weight:600">Looking for more? Here are a few links that might be helpful:</h2>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <a href="#" onClick="{{ noop }}" style="font-size:16px;line-height:1.6;color:#031f39;text-decoration:underline">Go to Bitly</a>
+              <a href="#" onClick="{{ noop }}" style="font-size:16px;line-height:1.6;color:#031f39;text-decoration:underline">Help Center</a>
+              <a href="#" onClick="{{ noop }}" style="font-size:16px;line-height:1.6;color:#031f39;text-decoration:underline">Get a Free account</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:420px;text-align:center;font-size:14px;line-height:20px;color:#526281">No plan, billing, or usage information about the QR Code owner appears on this page.</div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showModal }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Creation success" style="position:fixed;top:0;bottom:0;left:0;right:288px;z-index:130;background:rgba(70,76,80,0.6);display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto">
+    <div style="position:relative;width:600px;max-width:100%;background:#ffffff;border-radius:8px;padding:24px;box-shadow:0 8px 32px 0 rgba(21,27,38,0.12)">
+      <button type="button" onClick="{{ closeModal }}" aria-label="Close" style="position:absolute;top:24px;right:24px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;padding:0;border:none;border-radius:4px;background:transparent;color:#273144;cursor:pointer" style-hover="background:#f4f6fa">
+        <span class="ms" style="font-size:20px">close</span>
+      </button>
+      <h2 style="margin:0 0 4px;padding-right:32px;font-size:24px;line-height:32px;font-weight:600;letter-spacing:.01em">Your QR Code is ready</h2>
+      <p style="margin:0;font-size:14px;line-height:20px;color:#3a4863">Download it, or copy the short link to share.</p>
+
+      <div style="margin-top:16px;display:flex;flex-direction:column;align-items:center;gap:24px;padding:24px;border-radius:8px;background:#f4f6fa">
+        <div style="width:120px;height:120px;border:1px solid #dbe0eb;border-radius:4px;background:#ffffff;padding:8px;box-sizing:border-box">
+          <svg viewBox="0 0 21 21" width="102" height="102" role="img" aria-label="QR Code" style="display:block">
+            <rect x="0" y="0" width="21" height="21" fill="#ffffff"></rect>
+            <rect x="0" y="0" width="7" height="7" fill="#273144"></rect>
+            <rect x="1" y="1" width="5" height="5" fill="#ffffff"></rect>
+            <rect x="2" y="2" width="3" height="3" fill="#273144"></rect>
+            <rect x="14" y="0" width="7" height="7" fill="#273144"></rect>
+            <rect x="15" y="1" width="5" height="5" fill="#ffffff"></rect>
+            <rect x="16" y="2" width="3" height="3" fill="#273144"></rect>
+            <rect x="0" y="14" width="7" height="7" fill="#273144"></rect>
+            <rect x="1" y="15" width="5" height="5" fill="#ffffff"></rect>
+            <rect x="2" y="16" width="3" height="3" fill="#273144"></rect>
+            <sc-for list="{{ newQrModules }}" as="m" hint-placeholder-count="0">
+            <rect x="{{ m.x }}" y="{{ m.y }}" width="1" height="1" fill="#273144"></rect>
+            </sc-for>
+          </svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:12px 16px;border:1px solid #dbe0eb;border-radius:8px;background:#ffffff;box-shadow:0 4px 20px 0 rgba(0,0,0,0.16);font-size:20px">
+          <span class="ms" style="font-size:20px;color:#273144">link</span>
+          <span style="font-weight:600">{{ newQrShort }}</span>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;gap:24px;margin-top:24px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;max-width:100px;text-align:center;font-size:16px;font-weight:500;color:#273144">
+          <button type="button" style="display:flex;align-items:center;justify-content:center;padding:20px;border:none;border-radius:8px;background:#2a5bd7;color:#ffffff;cursor:pointer" style-hover="background:#0c3ebb" aria-label="Copy link">
+            <span class="ms" style="font-size:36px">content_copy</span>
+          </button>
+          Copy link
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;max-width:100px;text-align:center;font-size:16px;font-weight:500;color:#273144">
+          <button type="button" style="display:flex;align-items:center;justify-content:center;padding:20px;border:2px solid #dbe0eb;border-radius:8px;background:#ffffff;color:#273144;cursor:pointer" style-hover="background:#f4f6fa;border-color:#c3cbdc" aria-label="Copy QR Code">
+            <span class="ms" style="font-size:36px">qr_code_2</span>
+          </button>
+          Copy QR Code
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;max-width:100px;text-align:center;font-size:16px;font-weight:500;color:#273144">
+          <button type="button" style="display:flex;align-items:center;justify-content:center;padding:20px;border:2px solid #dbe0eb;border-radius:8px;background:#ffffff;color:#273144;cursor:pointer" style-hover="background:#f4f6fa;border-color:#c3cbdc" aria-label="Download QR Code">
+            <span class="ms" style="font-size:36px">file_download</span>
+          </button>
+          Download
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;max-width:100px;text-align:center;font-size:16px;font-weight:500;color:#273144">
+          <button type="button" style="display:flex;align-items:center;justify-content:center;padding:20px;border:2px solid #dbe0eb;border-radius:8px;background:#ffffff;color:#273144;cursor:pointer" style-hover="background:#f4f6fa;border-color:#c3cbdc" aria-label="More options">
+            <span class="ms" style="font-size:36px">more_horiz</span>
+          </button>
+          More options
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;align-items:flex-start;margin-top:24px;color:#526281;font-size:14px;line-height:18px">
+        <span class="ms" style="font-size:18px;color:#c3cbdc">info</span>
+        <div style="flex:1">{{ modalDisclosure }} <a href="#" onClick="{{ goPricingFromModal }}" style="color:inherit;text-decoration:underline">See plans</a></div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:16px;margin-top:24px">
+        <button type="button" onClick="{{ closeModal }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 15px;border:1px solid #dbe0eb;border-radius:4px;background:#ffffff;color:#273144;font-family:inherit;font-size:16px;font-weight:500;cursor:pointer" style-hover="background:#f4f6fa;border-color:#c3cbdc">Manage QR Codes</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <aside aria-label="Prototype controls" style="flex:0 0 288px;width:288px;align-self:flex-start;position:sticky;top:0;max-height:100vh;overflow-y:auto;z-index:200;background:#151b26;color:#ffffff;border-left:1px solid #3a4863;font-size:13px;line-height:18px">
+    <button type="button" onClick="{{ togglePanel }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;border:none;background:#151b26;color:#ffffff;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;cursor:pointer">
+      Prototype controls
+      <span class="ms" style="font-size:18px">{{ panelIcon }}</span>
+    </button>
+    <sc-if value="{{ panelOpen }}" hint-placeholder-val="{{ true }}">
+    <div style="padding:0 14px 14px;display:flex;flex-direction:column;gap:14px">
+      <div style="color:#96a3bd;font-size:12px;line-height:16px">Not part of the Bitly UI. Demo only.</div>
+
+      <div>
+        <div style="color:#c3cbdc;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Experience state</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <sc-for list="{{ stateOptions }}" as="opt" hint-placeholder-count="8">
+          <button type="button" onClick="{{ opt.go }}" style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 10px;border:1px solid #3a4863;border-radius:4px;background:{{ opt.bg }};color:{{ opt.fg }};font-family:inherit;font-size:13px;font-weight:500;text-align:left;cursor:pointer">
+            <span>{{ opt.label }}</span><span style="color:#96a3bd;font-size:12px">{{ opt.hint }}</span>
+          </button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div>
+        <div style="color:#c3cbdc;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Plan</div>
+        <div style="display:flex;gap:6px">
+          <button type="button" onClick="{{ setFree }}" style="flex:1;padding:7px 8px;border:1px solid #3a4863;border-radius:4px;background:{{ freeBg }};color:{{ freeFg }};font-family:inherit;font-size:13px;font-weight:500;cursor:pointer">Free</button>
+          <button type="button" onClick="{{ setPaid }}" style="flex:1;padding:7px 8px;border:1px solid #3a4863;border-radius:4px;background:{{ paidBg }};color:{{ paidFg }};font-family:inherit;font-size:13px;font-weight:500;cursor:pointer">Core (paid)</button>
+        </div>
+      </div>
+
+      <div>
+        <div style="color:#c3cbdc;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Lifetime scan allowance</div>
+        <div style="display:flex;gap:6px">
+          <sc-for list="{{ allowanceOptions }}" as="opt" hint-placeholder-count="4">
+          <button type="button" onClick="{{ opt.go }}" style="flex:1;padding:7px 4px;border:1px solid #3a4863;border-radius:4px;background:{{ opt.bg }};color:{{ opt.fg }};font-family:inherit;font-size:13px;font-weight:500;cursor:pointer">{{ opt.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div>
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px">
+          <span style="color:#c3cbdc;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em">Account scans</span>
+          <span style="font-weight:600">{{ scans }} / {{ allowance }}</span>
+        </div>
+        <input type="range" min="0" max="{{ sliderMax }}" value="{{ scans }}" onChange="{{ onSlider }}" style="width:100%;accent-color:#2a5bd7">
+        <div style="display:flex;gap:6px;margin-top:8px">
+          <button type="button" onClick="{{ addOne }}" style="flex:1;padding:7px 4px;border:1px solid #3a4863;border-radius:4px;background:#273144;color:#ffffff;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer">+1 scan</button>
+          <button type="button" onClick="{{ addTen }}" style="flex:1;padding:7px 4px;border:1px solid #3a4863;border-radius:4px;background:#273144;color:#ffffff;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer">+10 scans</button>
+          <button type="button" onClick="{{ setOver }}" style="flex:1;padding:7px 4px;border:1px solid #3a4863;border-radius:4px;background:#273144;color:#ffffff;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer">Over limit</button>
+        </div>
+      </div>
+
+      <div>
+        <div style="color:#c3cbdc;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">QR Codes on account</div>
+        <div style="display:flex;gap:6px">
+          <button type="button" onClick="{{ setOneQr }}" style="flex:1;padding:7px 8px;border:1px solid #3a4863;border-radius:4px;background:{{ oneQrBg }};color:{{ oneQrFg }};font-family:inherit;font-size:13px;font-weight:500;cursor:pointer">1</button>
+          <button type="button" onClick="{{ setTwoQr }}" style="flex:1;padding:7px 8px;border:1px solid #3a4863;border-radius:4px;background:{{ twoQrBg }};color:{{ twoQrFg }};font-family:inherit;font-size:13px;font-weight:500;cursor:pointer">2</button>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #3a4863;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:8px">
+        <span style="color:#96a3bd;font-size:12px">{{ severityLabel }}</span>
+        <button type="button" onClick="{{ reset }}" style="padding:7px 10px;border:1px solid #3a4863;border-radius:4px;background:#273144;color:#ffffff;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer">Reset</button>
+      </div>
+    </div>
+    </sc-if>
+  </aside>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;plan&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;free&quot;,&quot;core&quot;],&quot;default&quot;:&quot;free&quot;,&quot;tsType&quot;:&quot;'free' | 'core'&quot;,&quot;section&quot;:&quot;Prototype defaults&quot;},&quot;allowance&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;25&quot;,&quot;50&quot;,&quot;100&quot;,&quot;250&quot;],&quot;default&quot;:&quot;50&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype defaults&quot;},&quot;qrCodes&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;1&quot;,&quot;2&quot;],&quot;default&quot;:&quot;2&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype defaults&quot;},&quot;startState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;creation&quot;,&quot;active&quot;,&quot;approaching&quot;,&quot;critical&quot;,&quot;limit&quot;,&quot;scanner&quot;,&quot;upgrade&quot;,&quot;restored&quot;],&quot;default&quot;:&quot;active&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype defaults&quot;}}">
+class Component extends DCLogic {
+  state = {
+    plan: this.props.plan === 'core' ? 'paid' : 'free',
+    allowance: Number(this.props.allowance || 50),
+    scans: 18,
+    qrCount: Number(this.props.qrCodes || 2),
+    view: 'list',
+    scanner: false,
+    modal: false,
+    restored: false,
+    panelOpen: true,
+    detailId: 1
+  };
+
+  componentDidMount() {
+    const s = this.props.startState;
+    if (s) this.applyState(s);
+  }
+
+  modules(seed) {
+    let x = seed * 9301 + 49297;
+    const rnd = () => { x = (x * 9301 + 49297) % 233280; return x / 233280; };
+    const out = [];
+    const inFinder = (cx, cy) =>
+      (cx < 8 && cy < 8) || (cx > 12 && cy < 8) || (cx < 8 && cy > 12);
+    for (let y = 0; y < 21; y++) {
+      for (let cx = 0; cx < 21; cx++) {
+        if (inFinder(cx, y)) continue;
+        if (rnd() > 0.52) out.push({ x: cx, y });
+      }
+    }
+    return out;
+  }
+
+  applyState(name) {
+    const a = this.state.allowance;
+    const base = { view: 'list', scanner: false, modal: false, restored: false };
+    const map = {
+      creation: { ...base, scans: 0, modal: true, plan: 'free' },
+      active: { ...base, scans: Math.round(a * 0.36), plan: 'free' },
+      approaching: { ...base, scans: Math.round(a * 0.8), plan: 'free' },
+      critical: { ...base, scans: Math.max(0, a - 2), plan: 'free' },
+      limit: { ...base, scans: a, plan: 'free' },
+      scanner: { ...base, scans: a, scanner: true, plan: 'free' },
+      upgrade: { ...base, view: 'pricing', scans: a, plan: 'free' },
+      restored: { ...base, scans: a, plan: 'paid', restored: true }
+    };
+    if (map[name]) this.setState(map[name]);
+  }
+
+  renderVals() {
+    const s = this.state;
+    const isPaid = s.plan === 'paid';
+    const a = s.allowance;
+    const used = Math.min(s.scans, a);
+    const remaining = Math.max(0, a - s.scans);
+    const pct = a > 0 ? Math.min(100, Math.round((s.scans / a) * 100)) : 0;
+    const atLimit = !isPaid && s.scans >= a;
+    const critical = !isPaid && !atLimit && (remaining <= Math.max(2, Math.round(a * 0.04)) || pct >= 95);
+    const warn = !isPaid && !atLimit && !critical && pct >= 75;
+
+    const weights = [34, 12];
+    const split = (i) => {
+      if (s.qrCount === 1) return s.scans;
+      const first = Math.round(s.scans * weights[0] / (weights[0] + weights[1]));
+      return i === 0 ? first : s.scans - first;
+    };
+
+    const meta = [
+      { id: 1, name: 'Spring Campaign', short: 'bitly.com/example-spring', long: 'https://example.com/spring-campaign', created: 'Aug 12, 2026' },
+      { id: 2, name: 'Storefront Flyer', short: 'bitly.com/example-store', long: 'https://example.com/storefront-flyer', created: 'Aug 14, 2026' }
+    ];
+
+    const build = (m, i) => {
+      const scans = split(i);
+      const stopped = atLimit;
+      return {
+        ...m,
+        scans,
+        modules: this.modules(m.id * 7 + 3),
+        imageOpacity: stopped ? '0.45' : '1',
+        isStopped: stopped,
+        statusLabel: stopped ? 'Scan limit reached' : 'Active',
+        statusBg: stopped ? '#ffe8e6' : '#e9fbee',
+        statusFg: stopped ? '#c21506' : '#046923',
+        statusIcon: stopped ? 'pause_circle' : 'check_circle',
+        titleColor: stopped ? '#526281' : '#273144',
+        bodyColor: stopped ? '#526281' : '#273144',
+        scanColor: stopped ? '#526281' : (scans > 0 ? '#046923' : '#526281'),
+        open: (e) => { if (e) e.preventDefault(); this.setState({ view: 'details', detailId: m.id }); }
+      };
+    };
+
+    const qrs = meta.slice(0, s.qrCount).map(build);
+    const detailBase = qrs.find((q) => q.id === s.detailId) || qrs[0];
+    const sharePct = s.scans > 0 ? Math.round((detailBase.scans / s.scans) * 100) + '% of account scans' : '—';
+    const seriesVals = [4, 6, 3, 8, 5, 9, 7, 10, 8, 12, 9, 14, 11, 13];
+    const seriesMax = Math.max(...seriesVals);
+    const detail = {
+      ...detailBase,
+      sharePct,
+      redirecting: atLimit ? 'No' : 'Yes',
+      series: seriesVals.map((v) => ({ h: Math.round((v / seriesMax) * 100) + '%' })),
+      sharedLine: s.qrCount === 1
+        ? 'This QR Code is the only one using your account allowance.'
+        : 'Shared across your ' + s.qrCount + ' QR Codes: ' + qrs.map((q) => q.name + ' ' + q.scans).join(' + ') + ' = ' + s.scans + ' scans used.'
+    };
+
+    const sev = isPaid ? 'Paid — unlimited scans'
+      : atLimit ? (s.scans > a ? 'Stopped — over limit' : 'Stopped — limit reached')
+      : critical ? 'Critical' : warn ? 'Warning' : 'Normal';
+
+    const pill = (on) => ({ bg: on ? '#2a5bd7' : '#273144', fg: '#ffffff' });
+
+    const stateDefs = [
+      ['creation', 'Creation success', '0 scans'],
+      ['active', 'Active', Math.round(a * 0.36) + ' / ' + a],
+      ['approaching', 'Approaching limit', Math.round(a * 0.8) + ' / ' + a],
+      ['critical', 'Critical', Math.max(0, a - 2) + ' / ' + a],
+      ['limit', 'Scan limit reached', a + ' / ' + a],
+      ['scanner', 'Scanner view', 'public'],
+      ['upgrade', 'Upgrade', 'plans'],
+      ['restored', 'Restored', 'unlimited']
+    ];
+    const current = s.scanner ? 'scanner'
+      : s.modal ? 'creation'
+      : s.view === 'pricing' ? 'upgrade'
+      : isPaid ? 'restored'
+      : atLimit ? 'limit' : critical ? 'critical' : warn ? 'approaching' : 'active';
+
+    return {
+      isApp: !s.scanner,
+      isScanner: s.scanner,
+      isList: s.view === 'list',
+      isDetails: s.view === 'details',
+      isPricing: s.view === 'pricing',
+      showModal: s.modal,
+      isFree: !isPaid,
+      isPaid,
+      isOver: !isPaid && s.scans > a,
+      planName: isPaid ? 'Core plan' : 'Free plan',
+      allowance: a,
+      scans: s.scans,
+      usedClamped: used,
+      pctWidth: pct + '%',
+      remainingLabel: remaining === 1 ? '1 QR scan' : remaining + ' QR scans',
+      remainingSentence: atLimit ? 'No scans remaining' : (remaining === 1 ? '1 scan remaining' : remaining + ' scans remaining'),
+      sharedTooltip: 'QR scans are counted at the account level. Every scan of any QR Code on your account uses one of your ' + a + ' lifetime scans.',
+      showWarnAlert: warn,
+      showCritAlert: critical,
+      showLimitAlert: atLimit,
+      showRestored: s.restored,
+      severeCta: critical || atLimit,
+      subtleCta: !critical && !atLimit,
+      qrs,
+      detail,
+      qrLimitLine: isPaid
+        ? 'Unlimited QR Codes are included with your Core plan.'
+        : 'You have used ' + s.qrCount + ' of the 2 QR Codes included with your Free plan.',
+      newQrModules: this.modules(11),
+      newQrShort: 'bitly.com/example-spring',
+      modalDisclosure: a + ' QR scans are included with your Free plan, shared across your QR Codes. We will tell you before you run out.',
+      stateOptions: stateDefs.map(([key, label, hint]) => ({
+        label, hint,
+        bg: current === key ? '#2a5bd7' : '#273144',
+        fg: '#ffffff',
+        go: () => this.applyState(key)
+      })),
+      allowanceOptions: [25, 50, 100, 250].map((n) => ({
+        label: String(n),
+        bg: a === n ? '#2a5bd7' : '#273144',
+        fg: '#ffffff',
+        go: () => this.setState({ allowance: n, scans: Math.min(this.state.scans, n + 3) })
+      })),
+      sliderMax: a + 5,
+      severityLabel: sev,
+      panelOpen: s.panelOpen,
+      panelIcon: s.panelOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down',
+      freeBg: pill(!isPaid).bg, freeFg: '#ffffff',
+      paidBg: pill(isPaid).bg, paidFg: '#ffffff',
+      oneQrBg: pill(s.qrCount === 1).bg, oneQrFg: '#ffffff',
+      twoQrBg: pill(s.qrCount === 2).bg, twoQrFg: '#ffffff',
+      noop: (e) => { if (e) e.preventDefault(); },
+      togglePanel: () => this.setState({ panelOpen: !s.panelOpen }),
+      goPricing: (e) => { if (e) e.preventDefault(); this.setState({ view: 'pricing', modal: false, scanner: false }); },
+      goPricingFromModal: (e) => { if (e) e.preventDefault(); this.setState({ view: 'pricing', modal: false }); },
+      goList: (e) => { if (e) e.preventDefault(); this.setState({ view: 'list' }); },
+      closeModal: () => this.setState({ modal: false }),
+      dismissRestored: () => this.setState({ restored: false }),
+      doUpgrade: () => this.setState({ plan: 'paid', view: 'list', restored: true }),
+      setFree: () => this.setState({ plan: 'free', restored: false }),
+      setPaid: () => this.setState({ plan: 'paid' }),
+      setOneQr: () => this.setState({ qrCount: 1, detailId: 1 }),
+      setTwoQr: () => this.setState({ qrCount: 2 }),
+      addOne: () => this.setState({ scans: this.state.scans + 1 }),
+      addTen: () => this.setState({ scans: this.state.scans + 10 }),
+      setOver: () => this.setState({ scans: this.state.allowance + 3 }),
+      onSlider: (e) => this.setState({ scans: Number(e.target.value) }),
+      reset: () => this.setState({ plan: 'free', allowance: 50, scans: 18, qrCount: 2, view: 'list', scanner: false, modal: false, restored: false, detailId: 1 })
+    };
+  }
+}
+</script>
+</body>
+</html>
